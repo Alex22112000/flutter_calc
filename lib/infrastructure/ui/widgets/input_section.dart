@@ -1,20 +1,19 @@
+//import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_calc/infrastructure/provider/calculator.dart';
 import 'package:flutter_calc/infrastructure/ui/colors/colors.dart';
 import 'package:flutter_calc/infrastructure/ui/widgets/button.dart';
+import 'package:provider/provider.dart';
 
 class InputSection extends StatefulWidget {
-  final Function(String) onChange;
-  final Function() onReady;
-
-  const InputSection(
-      {super.key, required this.onChange, required this.onReady});
+  const InputSection({super.key});
 
   @override
   State<InputSection> createState() => _InputSectionState();
 }
 
 class _InputSectionState extends State<InputSection> {
-  String inputExpression = "";
 
   final List<String> buttons = [
     ".",
@@ -46,35 +45,13 @@ class _InputSectionState extends State<InputSection> {
     return false;
   }
 
-  void deleteBtnAction() {
-    if (inputExpression.isEmpty) return;
-    setState(() {
-      inputExpression =
-          inputExpression.substring(0, inputExpression.length - 1);
-    });
-    widget.onChange(inputExpression);
-  }
-
-  void clearInput() {
-    setState(() {
-      inputExpression = "";
-    });
-    widget.onChange(inputExpression);
-  }
-
-  void equalBtnAction() {
-    widget.onReady();
-  }
-
-  void onBtnTapped(String buttonText) {
-    setState(() {
-      inputExpression += buttonText;
-    });
-    widget.onChange(inputExpression);
-  }
-
   @override
   Widget build(BuildContext context) {
+    // context - пробрасывается в виджеты и нужен для отрисовки
+    // read<T> - нужен для вызова функций из T
+    var calculator = context.read<Calculator>();
+    //log("build widget");
+
     return Expanded(
         flex: 2,
         child: Container(
@@ -94,7 +71,8 @@ class _InputSectionState extends State<InputSection> {
                   case 1:
                     return CustomButton(
                         buttonTapped: () {
-                          deleteBtnAction();
+                          // извлекаем из provider метод delete()
+                          calculator.delete();
                         },
                         color: DarkColors.btnBgColor,
                         textColor: DarkColors.leftOperatorColor,
@@ -104,7 +82,7 @@ class _InputSectionState extends State<InputSection> {
                   case 2:
                     return CustomButton(
                         buttonTapped: () {
-                          clearInput();
+                          calculator.clear();
                         },
                         color: DarkColors.btnBgColor,
                         textColor: DarkColors.leftOperatorColor,
@@ -114,7 +92,7 @@ class _InputSectionState extends State<InputSection> {
                   case 19:
                     return CustomButton(
                         buttonTapped: () {
-                          equalBtnAction();
+                          calculator.calculate();
                         },
                         color: DarkColors.btnBgColor,
                         textColor: DarkColors.leftOperatorColor,
@@ -123,7 +101,7 @@ class _InputSectionState extends State<InputSection> {
                   default:
                     return CustomButton(
                         buttonTapped: () {
-                          onBtnTapped(buttons[index]);
+                          calculator.addSymbol(buttons[index]);
                         },
                         color: DarkColors.btnBgColor,
                         textColor: isOperator(buttons[index])

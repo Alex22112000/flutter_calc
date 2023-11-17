@@ -1,17 +1,20 @@
+//import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_calc/infrastructure/provider/calculator.dart';
+import 'package:provider/provider.dart';
 
 class OutputSection extends StatelessWidget {
-  final String inputText;
-  final String outputText;
-
   const OutputSection({
     Key? key,
-    required this.inputText,
-    required this.outputText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // watch<T> - наблюдает за именениями на T (изменения в state)
+    var calculator = context.watch<Calculator>();
+    //log("build widget");
+
     return Expanded(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -23,7 +26,8 @@ class OutputSection extends StatelessWidget {
               Container(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  inputText,
+                  // получение значения из поля input
+                  calculator.input,
                   style: const TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
@@ -32,7 +36,7 @@ class OutputSection extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.bottomRight,
-                child: Text(outputText,
+                child: Text(calculator.output,
                     style: const TextStyle(color: Colors.white, fontSize: 32)),
               ),
             ],
