@@ -1,9 +1,14 @@
 import 'package:flutter_calc/domain/api/i_calculator.dart';
+import 'package:flutter_calc/domain/postfix/postfix_expression_parser.dart';
 import 'package:stack/stack.dart';
 
 class PostfixCalculator implements ICalculator {
+
+  final _parser = PostfixExpressionParser();
+
   @override
-  double calculate(List<String> tokens) { // передаем tokens - распарсенное выражение
+  Future<double> calculate(String expression) async { // передаем tokens - распарсенное выражение
+    List<String> tokens = _parser.parse(expression);
     final locals = Stack<double>();
 
     for (final token in tokens) {

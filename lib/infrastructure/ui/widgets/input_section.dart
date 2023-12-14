@@ -6,14 +6,7 @@ import 'package:flutter_calc/infrastructure/ui/colors/colors.dart';
 import 'package:flutter_calc/infrastructure/ui/widgets/button.dart';
 import 'package:provider/provider.dart';
 
-class InputSection extends StatefulWidget {
-  const InputSection({super.key});
-
-  @override
-  State<InputSection> createState() => _InputSectionState();
-}
-
-class _InputSectionState extends State<InputSection> {
+class InputSection extends StatelessWidget {
 
   final List<String> buttons = [
     ".",
@@ -37,6 +30,8 @@ class _InputSectionState extends State<InputSection> {
     ")",
     "="
   ];
+
+  InputSection({super.key});
 
   bool isOperator(String y) {
     if (y == "/" || y == "*" || y == "-" || y == "+") {

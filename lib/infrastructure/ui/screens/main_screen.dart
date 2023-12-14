@@ -2,22 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calc/infrastructure/ui/colors/colors.dart';
 import 'package:flutter_calc/infrastructure/ui/widgets/input_section.dart';
 import 'package:flutter_calc/infrastructure/ui/widgets/output_section.dart';
+import 'package:flutter_calc/infrastructure/ui/widgets/switch_section.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: DarkColors.scaffoldBgColor,
-      body: Column(
-        children: [OutputSection(), InputSection()],
-      ),
+      body: SafeArea(child: Column(
+        children: [const SwitchSection(), const OutputSection(), InputSection()],
+      ),)
     );
   }
 }

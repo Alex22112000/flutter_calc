@@ -1,3 +1,3 @@
 abstract class ICalculator {
-  double calculate(List<String> tokens);
+  Future<double> calculate(String expression);
 }
