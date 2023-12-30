@@ -42,8 +42,6 @@ class InputSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // context - пробрасывается в виджеты и нужен для отрисовки
-    // read<T> - нужен для вызова функций из T
     var calculator = context.read<Calculator>();
     //log("build widget");
 

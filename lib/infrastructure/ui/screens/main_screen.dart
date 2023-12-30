@@ -11,7 +11,8 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: DarkColors.scaffoldBgColor,
-      body: SafeArea(child: Column(
+      body: SafeArea(child: 
+      Column(
         children: [const SwitchSection(), const OutputSection(), InputSection()],
       ),)
     );

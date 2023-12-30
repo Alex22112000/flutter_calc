@@ -7,14 +7,14 @@ class PostfixCalculator implements ICalculator {
   final _parser = PostfixExpressionParser();
 
   @override
-  Future<double> calculate(String expression) async { // передаем tokens - распарсенное выражение
+  Future<double> calculate(String expression) async {
     List<String> tokens = _parser.parse(expression);
     final locals = Stack<double>();
 
     for (final token in tokens) {
       if (double.tryParse(token) != null) {
         locals.push(double.parse(token));
-      } else if (_isOperator(token)) { // проверка на то, является ли token - оператором или же числом
+      } else if (_isOperator(token)) {
         if (token == '~') {
           double last = locals.isNotEmpty ? locals.pop() : 0;
 

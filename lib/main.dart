@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calc/infrastructure/provider/calculator.dart';
+import 'package:flutter_calc/infrastructure/ui/screens/history_screen.dart';
 import 'package:flutter_calc/infrastructure/ui/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -15,10 +16,14 @@ class MyApp extends StatelessWidget {
     // обертка нужна для того, чтобы виджеты с нижних уровней могли использовать provider с более высоких уровней
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => Calculator())],
-      child: const MaterialApp(
+      child: MaterialApp(
+        initialRoute: "/calculator",
+        routes:{
+          '/calculator': (context) => const MainScreen(),
+          '/history': (context) => const HistoryPage(),
+        },
+        
         debugShowCheckedModeBanner: false,
-        title: "Calculator",
-        home: MainScreen(),
       ),
     );
   }

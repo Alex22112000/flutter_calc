@@ -4,7 +4,7 @@ import 'package:stack/stack.dart';
 class PostfixExpressionParser implements IExpressionParser {
   late int _pos;
 
-  final Map<String, int> _operationPriority = { // приоритеты операторов
+  final Map<String, int> _operationPriority = {
     '(': 0,
     '+': 1,
     '-': 1,
@@ -14,7 +14,7 @@ class PostfixExpressionParser implements IExpressionParser {
   };
 
   @override
-  List<String> parse(String infixExpr) { // перевод в постфиксную запись, путем разбиения строки на tokens
+  List<String> parse(String infixExpr) {
     List<String> tokens = <String>[];
     Stack<String> stack = Stack<String>();
 
